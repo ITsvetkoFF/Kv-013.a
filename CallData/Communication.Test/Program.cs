@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Communication.Common;
 
 namespace Communication.Test
@@ -13,7 +9,7 @@ namespace Communication.Test
         {
             var parser = new Parser();
 
-            foreach (var bill in parser.ParseSAX(args[0]))
+            foreach (var bill in parser.ParseWithSax(args[0]))
             {
                 Console.WriteLine(bill.ToString());
             }
