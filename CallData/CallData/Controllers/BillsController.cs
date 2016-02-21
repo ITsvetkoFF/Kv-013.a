@@ -34,5 +34,10 @@ namespace CallData.Controllers
             return bill;
 
         }
+
+        public IHttpActionResult Post(Bill bill)
+        {
+            repository.Add(bill);
+        }
     }
 }

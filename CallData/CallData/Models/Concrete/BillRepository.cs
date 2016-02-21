@@ -17,19 +17,10 @@ namespace CallData.Models.Concrete
             return bills;
         }
 
-        private readonly IList<Bill> bills = new List<Bill>()
+        public void Add(Bill bill)
         {
-            new Bill {Id = 1, Name = "Tomato Soup"},
-            new Bill {Id = 2, Name = "Yo-yo"},
-            new Bill {Id = 3, Name = "Hammer"}
-        };
-
-
-        //[HttpPost]
-        //public void CreateBill([FromBody]Bill product)
-        //{
-        //    bills.Add(product);
-        //}
+            bills.Add(bill);
+        }
 
         //public void DeleteBill(int id)
         //{
@@ -43,5 +34,12 @@ namespace CallData.Models.Concrete
         //{
         //    //Some codes
         //}
+
+        private readonly IList<Bill> bills = new List<Bill>()
+        {
+            new Bill {Id = 1, Name = "Tomato Soup"},
+            new Bill {Id = 2, Name = "Yo-yo"},
+            new Bill {Id = 3, Name = "Hammer"}
+        };
     }
 }
