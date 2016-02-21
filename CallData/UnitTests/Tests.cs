@@ -1,4 +1,12 @@
-﻿using Xunit;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Http;
+using System.Web.Http.Results;
+using CallData.Controllers;
+using CallData.Models;
+using CallData.Models.Abstract;
+using Xunit;
 using Moq;
 
 namespace UnitTests
@@ -6,15 +14,43 @@ namespace UnitTests
     public class Tests
     {
         [Fact]
-        public void CAN_SHOW_All_BILLS_BY_BILL_NAME()
+        public void Get_Returns_Bill_With_Passed_Id()
         {
+            // Arrange
+            var mockRepository = new Mock<IBillRepository>();
+            mockRepository.Setup(x => x.GetById(1)).Returns(new Bill { Id = 1, Name = "Cool Bill"});
 
-            Assert.Equal(4, Add(2, 2));
+            var controller = new BillsController(mockRepository.Object);
+
+            // Act
+            var action = controller.Get(1);
+            var contentResult = action as OkNegotiatedContentResult<Bill>;
+             
+            // Assert
+            Assert.NotNull(contentResult);
+            Assert.NotNull(contentResult.Content);
+            Assert.Equal(1, contentResult.Content.Id);
         }
 
-        int Add(int x, int y)
+        [Fact]
+        public void GetAll_Returns_AllBills()
         {
-            return x + y;
+            // Arrange
+            var mockRepository = new Mock<IBillRepository>();
+            mockRepository.Setup(x => x.GetAll()).Returns(new []{
+                new Bill { Id = 1, Name = "Cool Bill" },
+                new Bill { Id = 2, Name = "Cool Bill #2" },
+                new Bill { Id = 3, Name = "Cool Bill #3" }
+            });
+
+            var controller = new BillsController(mockRepository.Object);
+
+            // Act
+            var action = controller.GetAll();
+
+            // Assert
+            Assert.Equal(3, action.Count());
         }
+
     }
 }

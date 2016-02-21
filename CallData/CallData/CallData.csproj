@@ -106,7 +106,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Bill.cs" />
+    <Compile Include="Models\Abstract\IBillRepository.cs" />
+    <Compile Include="Models\Concrete\BillRepository.cs" />
+    <Compile Include="Models\Entities\Bill.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
