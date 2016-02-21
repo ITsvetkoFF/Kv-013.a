@@ -18,14 +18,14 @@ namespace UnitTests
         {
             // Arrange
             var mockRepository = new Mock<IBillRepository>();
-            mockRepository.Setup(x => x.GetById(1)).Returns(new Bill { Id = 1, Name = "Cool Bill"});
+            mockRepository.Setup(x => x.GetById(1)).Returns(new Bill { Id = 1, Name = "Cool Bill" });
 
             var controller = new BillsController(mockRepository.Object);
 
             // Act
-            var action = controller.Get(1);
+            var action = controller.Get();
             var contentResult = action as OkNegotiatedContentResult<Bill>;
-             
+
             // Assert
             Assert.NotNull(contentResult);
             Assert.NotNull(contentResult.Content);
@@ -37,7 +37,7 @@ namespace UnitTests
         {
             // Arrange
             var mockRepository = new Mock<IBillRepository>();
-            mockRepository.Setup(x => x.GetAll()).Returns(new []{
+            mockRepository.Setup(x => x.GetAll()).Returns(new[]{
                 new Bill { Id = 1, Name = "Cool Bill" },
                 new Bill { Id = 2, Name = "Cool Bill #2" },
                 new Bill { Id = 3, Name = "Cool Bill #3" }
@@ -46,7 +46,7 @@ namespace UnitTests
             var controller = new BillsController(mockRepository.Object);
 
             // Act
-            var action = controller.GetAll();
+            var action = controller.Get();
 
             // Assert
             Assert.Equal(3, action.Count());

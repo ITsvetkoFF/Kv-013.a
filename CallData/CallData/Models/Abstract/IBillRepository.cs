@@ -7,5 +7,11 @@ namespace CallData.Models.Abstract
         Bill GetById(int id);
 
         IEnumerable<Bill> GetAll();
+
+        void Add(Bill product);
+
+        void Delete(int id);
+
+        void Update(int id, Bill product);
     }
 }
