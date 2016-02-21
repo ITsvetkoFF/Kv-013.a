@@ -1,0 +1,219 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Product App</title>
+    <link rel="stylesheet" href="../../Content/Site.css">
+    <script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.2.js" type="text/javascript"></script>
+</head>
+<body>
+    <div id="header">
+        <div class="title">All Products</div>
+    </div>
+    <div id="tableBlock"></div>
+    <div id="editBlock">
+        <p>
+            <b>Editing</b>
+        </p>
+        <table id="tableEditing">
+            <tr>
+                <td>
+                    <input type="hidden" id="editId" />
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Name: </label>
+                </td>
+                <td>
+                    <input type="text" id="editName" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Etc: </label>
+                </td>
+                <td>
+                    <input type="text" id="editAuthor" />
+                </td>
+            </tr>
+        </table>
+        <button id="editBill">Save</button>
+    </div>
+    <div id="createBlock">
+        <p>
+            <b>Addition </b>
+        </p>
+        <table>
+            <tr>
+                <td>
+                    <label>Name: </label>
+                </td>
+                <td>
+                    <input type="text" id="addName" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Etc: </label>
+                </td>
+                <td>
+                    <input type="text" id="addAuthor" />
+                </td>
+            </tr>
+        </table>
+        <button id="addBill">Save</button>
+    </div>
+</body>
+</html>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetAllBills();
+
+        $("#editBill").click(function (event) {
+            event.preventDefault();
+            EditBill();
+        });
+
+        $("#addBill").click(function (event) {
+            event.preventDefault();
+            AddBill();
+        });
+    });
+
+    function GetAllBills() {
+        $("createBlock").css('display', 'block');
+        $("#editBlock").css('display', 'none');
+        jQuery.support.cors = true;
+        $.ajax({
+            url: 'http://localhost:3470/api/bills/',
+            type: 'GET',
+            dataType: 'jsonp',
+            success: function (data) {
+                WriteResponse(data);
+            },
+            error: function (x, y, z) {
+                alert(x + '\n' + y + '\n' + z);
+            }
+        });
+    }
+
+    // Print the data on the screen
+    function WriteResponse(bills) {
+        var strResult = "<table><th>ID</th><th>Название</th>";
+        $.each(bills, function (index, bill) {
+            strResult += "<tr><td>" + bill.Id + "</td><td> " + bill.Name + "</td><td>" +
+            "</td><td><a id='editItem' data-item='" + bill.Id + "' onclick='EditItem(this);' >Edit</a></td>" +
+            "<td><a id='delItem' data-item='" + bill.Id + "' onclick='DeleteItem(this);' >Delete</a></td></tr>";
+        });
+        strResult += "</table>";
+        $("#tableBlock").html(strResult);
+    }
+
+    //// Adding new bill
+    function AddBill() {
+        // Get the added value for the bill
+        var bill = {
+            Name: $('#addName').val()
+        };
+
+        $.ajax({
+            url: 'http://localhost:3470/api/bills',
+            type: 'POST',
+            data: JSON.stringify(bill),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                GetAllBills();
+            },
+            error: function (x, y, z) {
+                alert(x + '\n' + y + '\n' + z);
+            }
+        });
+    }
+
+    // Handler removal
+    function DeleteItem(el) {
+        // Get the id of the deleted object
+        var id = $(el).attr('data-item');
+        DeleteBill(id);
+    }
+
+    function DeleteBill(id) {
+        $.ajax({
+            url: 'http://localhost:3470/api/bills' + id,
+            type: 'DELETE',
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                GetAllBills();
+            },
+            error: function (x, y, z) {
+                alert(x + '\n' + y + '\n' + z);
+            }
+        });
+    }
+
+    // edit the handler
+    function EditItem(el) {
+        // get the id of the object being edited
+        var id = $(el).attr('data-item');
+        GetBill(id);
+    }
+
+    // Bill a request for editing
+    function GetBill(id) {
+        $.ajax({
+            url: 'http://localhost:3470/api/bills' + id,
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                ShowBill(data);
+            },
+            error: function (x, y, z) {
+                alert(x + '\n' + y + '\n' + z);
+            }
+        });
+    }
+
+    // bill editing
+    function EditBill() {
+        var id = $('#editId').val();
+        // btain new values for the edited bill
+        var bill = {
+            Id: $('#editId').val(),
+            Name: $('#editName').val()
+        };
+        $.ajax({
+            url: 'http://localhost:3470/api/bills' + id,
+            type: 'PUT',
+            data: JSON.stringify(bill),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                GetAllBills();
+            },
+            error: function (x, y, z) {
+                alert(x + '\n' + y + '\n' + z);
+            }
+        });
+    }
+
+    //the output data edited bills in the field for editing
+    function ShowBill(bill) {
+        if (bill != null) {
+            $("#createBlock").css('display', 'none');
+            $("#editBlock").css('display', 'block');
+            $("#editId").val(bill.Id);
+            $("#editName").val(bill.Name);
+        }
+        else {
+            alert("The bill does'nt exist");
+        }
+    }
+</script>
+
+
+
+
+
+
+

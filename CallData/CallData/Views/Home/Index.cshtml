@@ -85,11 +85,10 @@
     function GetAllBills() {
         $("createBlock").css('display', 'block');
         $("#editBlock").css('display', 'none');
-        jQuery.support.cors = true;
         $.ajax({
-            url: 'http://localhost:3470/api/bills/',
+            url: '/api/bills',
             type: 'GET',
-            dataType: 'jsonp',
+            dataType: 'json',
             success: function (data) {
                 WriteResponse(data);
             },
@@ -119,7 +118,7 @@
         };
 
         $.ajax({
-            url: 'http://localhost:3470/api/bills',
+            url: '/api/bills/',
             type: 'POST',
             data: JSON.stringify(bill),
             contentType: "application/json;charset=utf-8",
@@ -141,7 +140,7 @@
 
     function DeleteBill(id) {
         $.ajax({
-            url: 'http://localhost:3470/api/bills' + id,
+            url: '/api/bills/' + id,
             type: 'DELETE',
             contentType: "application/json;charset=utf-8",
             success: function (data) {
@@ -163,7 +162,7 @@
     // Bill a request for editing
     function GetBill(id) {
         $.ajax({
-            url: 'http://localhost:3470/api/bills' + id,
+            url: '/api/bills/' + id,
             type: 'GET',
             dataType: 'json',
             success: function (data) {
@@ -184,7 +183,7 @@
             Name: $('#editName').val()
         };
         $.ajax({
-            url: 'http://localhost:3470/api/bills' + id,
+            url: '/api/bills/' + id,
             type: 'PUT',
             data: JSON.stringify(book),
             contentType: "application/json;charset=utf-8",
@@ -210,10 +209,4 @@
         }
     }
 </script>
-
-
-
-
-
-
 

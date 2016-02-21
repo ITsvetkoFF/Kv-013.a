@@ -14,7 +14,7 @@ namespace CallData.Controllers
     {
         private readonly IBillRepository _billRepository;
 
-        public BillsController(IBillRepository billRepository)
+        public BillsController()
         {
             this._billRepository = new BillRepository();
         }

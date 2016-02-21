@@ -20,7 +20,7 @@ namespace UnitTests
             var mockRepository = new Mock<IBillRepository>();
             mockRepository.Setup(x => x.GetById(1)).Returns(new Bill { Id = 1, Name = "Cool Bill" });
 
-            var controller = new BillsController(mockRepository.Object);
+            var controller = new BillsController();
 
             // Act
             var action = controller.Get();
@@ -43,7 +43,7 @@ namespace UnitTests
                 new Bill { Id = 3, Name = "Cool Bill #3" }
             });
 
-            var controller = new BillsController(mockRepository.Object);
+            var controller = new BillsController();
 
             // Act
             var action = controller.Get();
