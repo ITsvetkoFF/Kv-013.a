@@ -83,8 +83,12 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CallData\CallData.csproj">
-      <Project>{1569658d-201d-44e3-9da8-7d33cbdd5205}</Project>
+      <Project>{1569658D-201D-44E3-9DA8-7D33CBDD5205}</Project>
       <Name>CallData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Models\Models.csproj">
+      <Project>{1909EF35-55B2-4BF2-B7A6-F18CFC0FD7C1}</Project>
+      <Name>Models</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

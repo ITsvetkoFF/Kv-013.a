@@ -7,6 +7,7 @@ using System.Web.Http;
 using CallData.Models;
 using CallData.Models.Abstract;
 using CallData.Models.Concrete;
+using Models;
 
 namespace CallData.Controllers
 {
