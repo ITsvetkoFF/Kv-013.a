@@ -2,12 +2,15 @@
 using System.Linq;
 using System.Web.Http;
 using CallData.Models.Abstract;
+using Communication.Common;
+using Models;
 
 namespace CallData.Models.Concrete
 {
     public class BillRepository : IBillRepository
     {
         private readonly IList<Bill> bills;
+        private readonly Parser data;
 
         public BillRepository()
         {
@@ -17,6 +20,8 @@ namespace CallData.Models.Concrete
                     new Bill {Id = 2, Name = "Yo-yo"},
                     new Bill {Id = 3, Name = "Hammer"}
                 };
+
+            this.data = new Parser();
         }
 
         public Bill GetById(int id)
@@ -49,7 +54,7 @@ namespace CallData.Models.Concrete
 
         public IEnumerable<Bill> GetAll()
         {
-            return bills;
+            return data.ParseWithSax(@"C:\Users\Андрей\Documents\GitHub\Kv-013.a\CallData\Communication.Common\Content\bills.xml");
         }
     }
 }

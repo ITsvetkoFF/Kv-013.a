@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Results;
 using CallData.Controllers;
-using CallData.Models;
 using CallData.Models.Abstract;
 using Models;
 using Xunit;
