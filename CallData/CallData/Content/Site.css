@@ -1,0 +1,54 @@
+﻿body {
+    font-family: "Times New Roman";
+    margin: 0;
+}
+ 
+#header {
+    background-color: #444;
+    border-bottom: 2px solid #111;
+    color: white;
+}
+
+#header .title {
+    font-size: 2em;
+    padding: .6em;
+}
+
+td {
+    border-top: 2px dotted gray;
+    padding-top: .7em;
+    margin-bottom: .7em;
+}
+
+#editBlock {
+    display:none;
+    float:right;
+    margin-right: 5%;
+}
+
+#createBlock {
+    float:right;
+    margin-right: 5%;
+}
+
+#tableBlock {
+    display:inline-block;
+    width: 70%;
+    margin-left: 5%;
+    margin-top: 2%;
+}
+
+#tableBlock td a{
+    font-size: 14px;
+    color: cornflowerblue;
+}
+
+#tableBlock td a:hover {
+    color: darkcyan;
+    cursor: pointer;
+}
+
+.id_cls {
+    width: 50px;
+    border-right: 2px dotted gray;
+}
