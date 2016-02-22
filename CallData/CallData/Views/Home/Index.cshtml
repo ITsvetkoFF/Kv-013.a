@@ -1,13 +1,13 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title>Product App</title>
-    <link rel="stylesheet" href="Content/Site.css">
+    <title>WEB API</title>
+    <link rel="stylesheet" href="../../Content/Site.css">
     <script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.2.js" type="text/javascript"></script>
 </head>
 <body>
     <div id="header">
-        <div class="title">All Products</div>
+        <div class="title">WEB API</div>
     </div>
     <div id="tableBlock"></div>
     <div id="editBlock">
@@ -100,7 +100,7 @@
 
     // Print the data on the screen
     function WriteResponse(bills) {
-        var strResult = "<table><th>ID</th><th>Название</th>";
+        var strResult = "<table><th class='id_cls'>ID</th><th>Название</th>";
         $.each(bills, function (index, bill) {
             strResult += "<tr><td>" + bill.Id + "</td><td> " + bill.Name + "</td><td>" +
             "</td><td><a id='editItem' data-item='" + bill.Id + "' onclick='EditItem(this);' >Edit</a></td>" +
@@ -178,14 +178,14 @@
     function EditBill() {
         var id = $('#editId').val();
         // btain new values for the edited bill
-        var book = {
+        var bill = {
             Id: $('#editId').val(),
             Name: $('#editName').val()
         };
         $.ajax({
             url: '/api/bills/' + id,
             type: 'PUT',
-            data: JSON.stringify(book),
+            data: JSON.stringify(bill),
             contentType: "application/json;charset=utf-8",
             success: function (data) {
                 GetAllBills();

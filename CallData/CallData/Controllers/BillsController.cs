@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using CallData.Models;
 using CallData.Models.Abstract;
 using CallData.Models.Concrete;
@@ -11,6 +12,7 @@ using Models;
 
 namespace CallData.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class BillsController : ApiController
     {
         private readonly IBillRepository _billRepository;
@@ -21,9 +23,15 @@ namespace CallData.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Bill> Get()
+        public IHttpActionResult Get()
         {
-            return _billRepository.GetAll();
+            return Ok(_billRepository.GetAll());
+        }
+
+        public IHttpActionResult GetBill(int id)
+        {
+            Bill bill = _billRepository.GetById(id);
+            return Ok(bill);
         }
 
         [HttpPost]

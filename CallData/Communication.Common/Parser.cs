@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Xml.Linq;
 using Models;
 using Sax.Net;
@@ -116,7 +117,7 @@ namespace Communication.Common
             _xmlReader.ContentHandler = handler;
             _xmlReader.ErrorHandler = handler;
 
-            using (var file = new StreamReader(pathToFile))
+            using (var file = new StreamReader(pathToFile, Encoding.GetEncoding("windows-1251")))
             {
                 _xmlReader.Parse(new InputSource(file));
             }

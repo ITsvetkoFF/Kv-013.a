@@ -47,3 +47,8 @@ td {
     color: darkcyan;
     cursor: pointer;
 }
+
+.id_cls {
+    width: 50px;
+    border-right: 2px dotted gray;
+}

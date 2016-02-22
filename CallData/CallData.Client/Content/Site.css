@@ -32,9 +32,15 @@ td {
 }
 
 #tableBlock {
+    width: 70%;
     display:inline-block;
     margin-left: 5%;
     margin-top: 2%;
+}
+
+.id_cls {
+    width: 50px;
+    border-right: 2px dotted gray;
 }
 
 #tableBlock td a{

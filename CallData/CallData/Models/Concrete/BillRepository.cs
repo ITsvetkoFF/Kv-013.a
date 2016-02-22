@@ -11,6 +11,7 @@ namespace CallData.Models.Concrete
     {
         private readonly IList<Bill> bills;
         private readonly Parser data;
+        private readonly IEnumerable<Bill> bils;
 
         public BillRepository()
         {
@@ -22,11 +23,14 @@ namespace CallData.Models.Concrete
                 };
 
             this.data = new Parser();
+            this.bils = data.ParseWithDom(@"C:\Users\Андрей\Documents\GitHub\Kv-013.a\CallData\Communication.Common\Content\bills.xml");
         }
 
         public Bill GetById(int id)
         {
-            return bills.FirstOrDefault(r => r.Id == id);
+            return bils.Where(r => r.Id == id)
+                .ToList()
+                .FirstOrDefault();
         }
 
         public void Add([FromBody]Bill product)
@@ -54,7 +58,7 @@ namespace CallData.Models.Concrete
 
         public IEnumerable<Bill> GetAll()
         {
-            return data.ParseWithSax(@"C:\Users\Андрей\Documents\GitHub\Kv-013.a\CallData\Communication.Common\Content\bills.xml");
+            return bils;
         }
     }
 }
