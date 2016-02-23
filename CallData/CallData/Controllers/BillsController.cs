@@ -6,33 +6,41 @@ using System.Net.Http;
 using System.Web.Http;
 using CallData.Models;
 using CallData.Models.Abstract;
+using CallData.Models.Concrete;
 
 namespace CallData.Controllers
 {
     public class BillsController : ApiController
     {
-        private IBillRepository repository;
+        private readonly IBillRepository _billRepository;
 
-        public BillsController(IBillRepository repository)
+        public BillsController(IBillRepository billRepository)
         {
-            this.repository = repository;
+            this._billRepository = new BillRepository();
         }
 
-        public IHttpActionResult Get(int id)
+        [HttpGet]
+        public IEnumerable<Bill> Get()
         {
-            var bill = repository.GetById(id);
-            if (bill == null)
-            {
-                return NotFound();
-            }
-            return Ok(bill);
+            return _billRepository.GetAll();
         }
 
-        public IEnumerable<Bill> GetAll()
+        [HttpPost]
+        public void Add([FromBody]Bill product)
         {
-            var bill = repository.GetAll();
-            return bill;
+            _billRepository.Add(product);
+        }
+        
+        [HttpDelete]
+        public void Delete(int id)
+        {
+            _billRepository.Delete(id);
+        }
 
+        [HttpPut]
+        public void Update(int id, [FromBody]Bill product)
+        {
+            _billRepository.Update(id, product);
         }
 
         public IHttpActionResult Post(Bill bill)

@@ -85,10 +85,11 @@
     function GetAllBills() {
         $("createBlock").css('display', 'block');
         $("#editBlock").css('display', 'none');
+        jQuery.support.cors = true;
         $.ajax({
             url: 'http://localhost:3470/api/bills/',
             type: 'GET',
-            dataType: 'json',
+            dataType: 'jsonp',
             success: function (data) {
                 WriteResponse(data);
             },
